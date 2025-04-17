@@ -6,6 +6,9 @@ while [ ! -f /config/rtorrent/.rtorrent.rc ]; do sleep 1; done
 # replace d.directory by d.base_path
 sed -e "s|/usr/local/bin/postdl,\$d\.directory|/usr/local/bin/postdl,\$d\.base_path|g" -i /config/rtorrent/.rtorrent.rc
 
+# update to php83
+sed -e "s|'\/usr\/bin\/php'|'\/usr\/bin\/php83'|g" -i /config/rtorrent/.rtorrent.rc
+
 # Wait for config.php file
 while [ ! -f /config/rutorrent/conf/config.php ]; do sleep 1; done
 

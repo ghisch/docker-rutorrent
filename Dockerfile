@@ -148,6 +148,7 @@ RUN apk --update --no-cache add \
     php83-sockets \
     php83-xml \
     php83-zip \
+    php83-fileinfo \
     rtorrent \
     sox \
     su-exec \

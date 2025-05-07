@@ -72,7 +72,7 @@ RUN tree ${DIST_PATH}
 # Build and install mktorrent with pthreads
 WORKDIR /usr/local/src/mktorrent
 COPY --from=src-mktorrent /src .
-RUN echo "CC = gcc" >> Makefile	
+RUN echo "CC = gcc" >> Makefile
 RUN echo "CFLAGS = -w -flto -O3" >> Makefile
 RUN echo "USE_PTHREADS = 1" >> Makefile
 RUN echo "USE_OPENSSL = 1" >> Makefile
@@ -95,7 +95,7 @@ LABEL description="rutorrent based on alpinelinux" \
 
 ARG FILEBOT=false
 ARG FILEBOT_VER=5.1.7
-ARG RUTORRENT_VER=5.1.6
+ARG RUTORRENT_VER=5.1.11
 
 ENV UID=991 \
     GID=991 \
@@ -108,7 +108,8 @@ ENV UID=991 \
     FILEBOT_RENAME_METHOD=symlink \
     FILEBOT_LANG=fr \
     FILEBOT_CONFLICT=skip \
-    HTTP_AUTH=false
+    HTTP_AUTH=false \
+    SAVE_UPLOADED_TORRENTS=true
 
 COPY --from=builder /dist /
 
@@ -148,6 +149,7 @@ RUN apk --update --no-cache add \
     php83-sockets \
     php83-xml \
     php83-zip \
+    php83-fileinfo \
     rtorrent \
     sox \
     su-exec \

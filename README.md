@@ -57,6 +57,7 @@ docker build --tag mondedie/rutorrent:filebot --build-arg FILEBOT=true https://g
 | **DOWNLOAD_DIRECTORY** | Torrent download directory | *optional* | /data/downloads
 | **CHECK_PERM_DATA** | Check permissions in the data directory | *optional* | true
 | **HTTP_AUTH** | Enable HTTP authentication | *optional* | false
+| **SAVE_UPLOADED_TORRENTS** | Save Uploaded Torrents | *optional* | true
 
 ### Environment variables with filebot
 
@@ -120,7 +121,7 @@ git clone https://github.com/Gyran/rutorrent-ratiocolor.git /mnt/docker/rutorren
 
 Add custom theme :
 
-Donwload a theme for example in this repository https://github.com/artyuum/3rd-party-ruTorrent-Themes.git  
+Donwload a theme for example in this repository https://github.com/artyuum/3rd-party-ruTorrent-Themes.git
 And copy the folder in `/mnt/docker/rutorrent/config/custom_themes`
 
 Run container :

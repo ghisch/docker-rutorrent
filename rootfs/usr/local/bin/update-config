@@ -7,7 +7,7 @@ while [ ! -f /config/rtorrent/.rtorrent.rc ]; do sleep 1; done
 sed -e "s|/usr/local/bin/postdl,\$d\.directory|/usr/local/bin/postdl,\$d\.base_path|g" -i /config/rtorrent/.rtorrent.rc
 
 # update to php83
-sed -e "s|\/usr\/bin\/php|\/usr\/bin\/php83|g" -i /config/rtorrent/.rtorrent.rc
+sed -e "s|\/usr\/bin\/php82|\/usr\/bin\/php83|g" -i /config/rtorrent/.rtorrent.rc
 
 # Wait for config.php file
 while [ ! -f /config/rutorrent/conf/config.php ]; do sleep 1; done
@@ -16,10 +16,22 @@ while [ ! -f /config/rutorrent/conf/config.php ]; do sleep 1; done
 sed -e "s|'\/RPC'|'\/RPC2'|g" -i /config/rutorrent/conf/config.php
 
 # update to php83
-sed -e "s|'\/usr\/bin\/php82'|'\/usr\/bin\/php83'|g" -i /config/rutorrent/conf/config.php
+sed -e "s|\/usr\/bin\/php82|\/usr\/bin\/php83|g" -i /config/rutorrent/conf/config.php
 
 # replace new location of curl
 sed -i -e "s/\/usr\/bin\/curl/\/usr\/local\/bin\/curl/g" /config/rutorrent/conf/config.php
 
 # replace download directory
 sed -i "s|^\(\s*\$topDirectory\s*=\s*\)\S*|\\1'${DOWNLOAD_DIRECTORY}';|" /config/rutorrent/conf/config.php
+
+# replace SaveUploadedTorrent
+sed -i "s|^\(\s*\$saveUploadedTorrents\s*=\s*\)\S*|\\1${SAVE_UPLOADED_TORRENTS};|" /config/rutorrent/conf/config.php
+
+# Wait for conf.php file
+while [ ! -f /rutorrent/app/plugins/rss/conf.php ]; do sleep 1; done
+
+# Increase RSS History
+sed -i "s|^\(\s*@define('HISTORY_MAX_COUNT',\s*\).*|@define('HISTORY_MAX_COUNT', 1000);|" /rutorrent/app/plugins/rss/conf.php
+
+# replace rss_debug_enabled
+sed -i "s|^\(\s*\$rss_debug_enabled\s*=\s*\)\S*|\\1true;|" /rutorrent/app/plugins/rss/conf.php
